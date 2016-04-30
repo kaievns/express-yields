@@ -1,0 +1,24 @@
+{
+  "name": "express-yields",
+  "version": "1.0.0",
+  "description": "ES6 Generators support for expressjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MadRabbit/express-generators.git"
+  },
+  "keywords": [
+    "expressjs",
+    "generators",
+    "es6"
+  ],
+  "author": "Nikolay Nemshilov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MadRabbit/express-generators/issues"
+  },
+  "homepage": "https://github.com/MadRabbit/express-generators#readme"
+}
