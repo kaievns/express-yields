@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MadRabbit/express-generators.git"
+    "url": "git+https://github.com/MadRabbit/express-yields.git"
   },
   "keywords": [
     "expressjs",
@@ -18,7 +18,10 @@
   "author": "Nikolay Nemshilov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MadRabbit/express-generators/issues"
+    "url": "https://github.com/MadRabbit/express-yields/issues"
   },
-  "homepage": "https://github.com/MadRabbit/express-generators#readme"
+  "homepage": "https://github.com/MadRabbit/express-yields#readme",
+  "dependencies": {
+    "co": "^4.6.0"
+  }
 }

@@ -11,7 +11,8 @@ npm install express-yields --save
 Then require this script somewhere __before__ you start using it:
 
 ```js
-const express = require('express-yields')(require('express'));
+const express = require('express');
+const yields = require('express-yields');
 const User = require('./models/user');
 const app = express();
 
@@ -26,6 +27,9 @@ app.get('/users', function* (req, res) {
 This is a very minimalistic and unintrusive hack. Instead of patching all methods
 on an express `Router`, it wraps the `Layer#handle` property in one place, leaving
 all the rest of the express guts intact.
+
+The idea is that you require the patch once and then use the `'express'` lib the
+usual way in the rest of your application.
 
 ## Copyright & License
 
