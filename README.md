@@ -22,6 +22,21 @@ app.get('/users', function* (req, res) {
 });
 ```
 
+## A Notice About Calling `next`
+
+As we all know express sends a function called `next` into the middleware, which
+then needs to be called with or without error to make it move the request handling
+to the next middleware. It still works, but in case of a generator function, you
+don't need to do that. If you want to pass an error, just throw a normal exception:
+
+```js
+app.use(function * (req, res) {
+  const user = yield User.findByToken(req.get('authorization'));
+
+  if (!user) throw Error("access denied");
+});
+```
+
 ## How Does This Work?
 
 This is a very minimalistic and unintrusive hack. Instead of patching all methods

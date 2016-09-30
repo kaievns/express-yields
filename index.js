@@ -21,6 +21,8 @@ function isGenerator(fn) {
 function wrap(original) {
   const wrapped = co.wrap(original);
   return function(req, res, next) {
-    wrapped(req, res, next).catch(next);
+    wrapped(req, res).then(() => {
+      !res.headersSent && next();
+    }).catch(next);
   };
 };
