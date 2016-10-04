@@ -1,6 +1,6 @@
 {
   "name": "express-yields",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "ES6 Generators support for expressjs",
   "main": "index.js",
   "scripts": {
