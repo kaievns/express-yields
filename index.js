@@ -32,7 +32,7 @@ function wrapGenerator(original) {
   return function(req, res, next = function() {}) {
     wrapped(req, res).then(() => {
       !res.headersSent && next();
-    }).catch(next);
+    }).catch(err => next(err || {}));
   };
 };
 
@@ -40,7 +40,8 @@ function wrapAsync(fn) {
   return (req, res, next) => {
     const routePromise = fn(req, res, next);
     if (routePromise.catch) {
-      routePromise.catch(err => next(err));
+      routePromise.catch(err => next(err || {}));
     }
+    return routePromise;
   }
 };
