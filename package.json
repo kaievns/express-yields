@@ -1,6 +1,6 @@
 {
   "name": "express-yields-2",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "ES6 generators and async functions support for expressjs",
   "main": "index.js",
   "scripts": {
