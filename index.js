@@ -1,5 +1,5 @@
 const co = require('co');
-const Layer = require.main.require('express/lib/router/layer');
+const Layer = require('express/lib/router/layer');
 
 Object.defineProperty(Layer.prototype, "handle", {
   enumerable: true,
