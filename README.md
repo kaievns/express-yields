@@ -1,6 +1,6 @@
 # ExpressJS Yields
 
-A dead simple ES6 generators support hack for [ExpressJS](http://expressjs.com)
+A dead simple ES6 generators and ES7 async/await support hack for [ExpressJS](http://expressjs.com)
 
 ## Usage
 
@@ -20,6 +20,12 @@ app.get('/users', function* (req, res) {
   const users = yield User.findAll(); // <- some Promise
   res.send(users);
 });
+
+// or with node 7 async/await
+app.get('/users', async (req, res) => {
+  const users = await User.findAll(); // <- some Promise
+  res.send(users);
+});
 ```
 
 ## A Notice About Calling `next`
@@ -35,11 +41,18 @@ app.use(function * (req, res) {
 
   if (!user) throw Error("access denied");
 });
+
+// the same with Node 7 async/await
+app.use(async (req, res) => {
+  const user = await User.findByToken(req.get('authorization'));
+
+  if (!user) throw Error("access denied");
+});
 ```
 
 ## How Does This Work?
 
-This is a very minimalistic and unintrusive hack. Instead of patching all methods
+This is a minimalistic and unintrusive hack. Instead of patching all methods
 on an express `Router`, it wraps the `Layer#handle` property in one place, leaving
 all the rest of the express guts intact.
 
@@ -48,6 +61,6 @@ usual way in the rest of your application.
 
 ## Copyright & License
 
-All code in this repository is released under the terms of the ISC license.
+All code in this repository released under the terms of the ISC license.
 
 Copyright (C) 2016 Nikolay Nemshilov
