@@ -1,6 +1,8 @@
 const co = require('co');
 const Layer = require('express/lib/router/layer');
 
+const noop = () => {};
+
 Object.defineProperty(Layer.prototype, "handle", {
   enumerable: true,
   get: function() { return this.__handle; },
@@ -29,7 +31,7 @@ function isAsync(fn) {
 
 function wrapGenerator(original) {
   const wrapped = co.wrap(original);
-  return function(req, res, next = function() {}) {
+  return function(req, res, next = noop) {
     wrapped(req, res).then(() => {
       !res.headersSent && next();
     }).catch(next);
@@ -37,10 +39,11 @@ function wrapGenerator(original) {
 };
 
 function wrapAsync(fn) {
-  return (req, res, next) => {
-    const routePromise = fn(req, res, next);
-    if (routePromise.catch) {
-      routePromise.catch(err => next(err));
-    }
+  return (req, res, next = noop) => {
+    fn(req, res, next)
+      .then(() => {
+        !res.headersSent && next();
+      })
+      .catch(next);
   }
 };
