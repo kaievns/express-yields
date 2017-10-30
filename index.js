@@ -14,7 +14,7 @@ function wrap(fn) {
   return (req, res, next) => {
     const routePromise = fn(req, res, next);
 
-    if (routePromise.catch && typeof routePromise.catch === 'function') {
+    if (routePromise && routePromise.catch && typeof routePromise.catch === 'function') {
       routePromise.catch(err => next(err));
     }
 
