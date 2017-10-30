@@ -22,6 +22,5 @@
   },
   "homepage": "https://github.com/scottmas/express-yields#readme",
   "dependencies": {
-    "co": "^4.6.0"
   }
 }
