@@ -4,7 +4,10 @@ Object.defineProperty(Layer.prototype, "handle", {
   enumerable: true,
   get: function() { return this.__handle; },
   set: function(fn) {
-    fn = wrap(fn);
+    
+    if(fn.length !== 4){
+      fn = wrap(fn);
+    }
 
     this.__handle = fn;
   }
