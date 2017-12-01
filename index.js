@@ -32,9 +32,9 @@ function isAsync(fn) {
 function wrapGenerator(original) {
   const wrapped = co.wrap(original);
   return function(req, res, next = noop) {
-    wrapped(req, res).then(() => {
-      !res.headersSent && next();
-    }).catch(next);
+    wrapped(req, res)
+        .then(() => next())
+        .catch(next);
   };
 };
 
