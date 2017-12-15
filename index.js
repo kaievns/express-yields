@@ -33,7 +33,7 @@ function wrapGenerator(original) {
   const wrapped = co.wrap(original);
   return function(req, res, next = noop) {
     wrapped(req, res)
-        .then(() => next())
+        .then(() => !res.finished && next())
         .catch(next);
   };
 };
@@ -41,9 +41,7 @@ function wrapGenerator(original) {
 function wrapAsync(fn) {
   return (req, res, next = noop) => {
     fn(req, res, next)
-      .then(() => {
-        !res.headersSent && next();
-      })
+      .then(() => !res.finished && next())
       .catch(next);
   }
 };
