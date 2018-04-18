@@ -5,14 +5,14 @@ A dead simple ES6 generators and ES7 async/await support hack for [ExpressJS](ht
 ## Usage
 
 ```
-npm install express-yields --save
+npm install @penggy/express-yields --save
 ```
 
 Then require this script somewhere __before__ you start using it:
 
 ```js
 const express = require('express');
-const yields = require('express-yields');
+const yields = require('@penggy/express-yields');
 const User = require('./models/user');
 const app = express();
 
