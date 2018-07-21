@@ -10,9 +10,8 @@ Object.defineProperty(Layer.prototype, "handle", {
     if (isGenerator(fn)) {
       fn = wrapGenerator(fn);
     }
-
-    if (isAsync(fn)) {
-      fn = wrapAsync(fn);
+    else {
+      fn = wrapThenable(fn);
     }
 
     this.__handle = fn;
@@ -24,11 +23,6 @@ function isGenerator(fn) {
   return type.indexOf('GeneratorFunction') !== -1;
 }
 
-function isAsync(fn) {
-  const type = Object.toString.call(fn.constructor);
-  return type.indexOf('AsyncFunction') !== -1;
-};
-
 function wrapGenerator(original) {
   const wrapped = co.wrap(original);
   return function(req, res, next = noop) {
@@ -38,10 +32,13 @@ function wrapGenerator(original) {
   };
 };
 
-function wrapAsync(fn) {
-  return (req, res, next = noop) => {
-    fn(req, res, next)
-      .then(() => !res.finished && next())
-      .catch(next);
-  }
-};
+function wrapThenable(fn) {
+    return (req, res, next = noop) => {
+        const rv = fn(req, res, next);
+        if (rv && rv.then) {
+            Promise.resolve(rv)
+                .then(() => !res.finished && next())
+                .catch(next);
+        }
+    };
+}
